@@ -1,0 +1,11 @@
+# Redirect www to non-www (canonical)
+https://www.balajiganapathy.com/*  https://balajiganapathy.com/:splat  301!
+
+# Redirect old paths to new single-page sections
+/speaking       /#persona-speaker   301
+/advisory       /#persona-advisor   301
+/leader         /#persona-leader    301
+/coach          /#persona-coach     301
+
+# Default fallback to home for SPA-style routes
+/*              /index.html         200
