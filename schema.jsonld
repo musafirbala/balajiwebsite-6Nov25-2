@@ -1,0 +1,75 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://balajiganapathy.com/#person",
+      "name": "Balaji Ganapathy",
+      "alternateName": "Balaji",
+      "jobTitle": "Chief Social Responsibility Officer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Tata Consultancy Services",
+        "sameAs": "https://www.tcs.com"
+      },
+      "description": "C-level executive focused on purpose-driven leadership, ESG, social impact and inclusive growth across 55 countries.",
+      "url": "https://balajiganapathy.com/",
+      "image": "https://balajiganapathy.com/assets/headshot-hero.jpg",
+      "sameAs": [
+        "https://www.linkedin.com/in/balajiganapathy",
+        "https://twitter.com/yourhandle",
+        "https://www.youtube.com/channel/yourchannel"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://balajiganapathy.com/#org",
+      "name": "Balaji Ganapathy (Personal Brand)",
+      "url": "https://balajiganapathy.com/",
+      "logo": "https://balajiganapathy.com/assets/logo.svg",
+      "sameAs": [
+        "https://www.linkedin.com/in/balajiganapathy"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://balajiganapathy.com/#website",
+      "url": "https://balajiganapathy.com/",
+      "name": "Balaji Ganapathy",
+      "description": "Personal portfolio and thought leadership site for Balaji Ganapathy: leader, advisor, speaker, coach in social impact and ESG.",
+      "publisher": {
+        "@id": "https://balajiganapathy.com/#org"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://balajiganapathy.com/#talk1",
+      "headline": "Purpose is the New Tech \u2014 Keynote by Balaji Ganapathy",
+      "creator": {
+        "@id": "https://balajiganapathy.com/#person"
+      },
+      "datePublished": "2025-03-01",
+      "about": "purpose-driven leadership, AI for social good, inclusive workforce",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Event",
+      "@id": "https://balajiganapathy.com/#upcoming-speech",
+      "name": "Keynote \u2014 Purpose, People & Technology",
+      "startDate": "2026-03-05",
+      "endDate": "2026-03-05",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "TBD (Global Conference)",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "TBD"
+        }
+      },
+      "performer": {
+        "@id": "https://balajiganapathy.com/#person"
+      }
+    }
+  ]
+}

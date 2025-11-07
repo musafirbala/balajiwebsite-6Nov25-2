@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://balajiganapathy.com/</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://balajiganapathy.com/speaking</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://balajiganapathy.com/advisory</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://balajiganapathy.com/coach</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://balajiganapathy.com/leader</loc>
+    <priority>0.80</priority>
+  </url>
+</urlset>
