@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://balajiganapathy.com/sitemap.xml
+
+# Optional: reinforce canonical domain
+Host: balajiganapathy.com
