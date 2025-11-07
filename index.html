@@ -1,0 +1,815 @@
+<!doctype html>
+<!--
+  index.html
+  Next-Gen Personal Portfolio for Balaji Ganapathy
+  - Mobile-first, semantic HTML5
+  - Accessible (WCAG 2.2 targeted), keyboard navigable
+  - Schema JSON-LD included (Person, Organization, CreativeWork, Event)
+  - Open Graph + Twitter Card meta included
+  - Interactive timeline, testimonial slider, AI-chat widget stub
+  - Dark/Light toggle, parallax hero, micro-animations
+  HANDOFF: filenames listed at the bottom in <!-- HANDOFF: ASSETS -->
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Balaji Ganapathy — Purpose is the New Tech | Leader · Advisor · Speaker · Coach</title>
+
+  <!-- Primary SEO meta -->
+  <meta name="description" content="Balaji Ganapathy — C-suite leader (Chief Social Responsibility Officer, TCS). Architect of inclusive growth: 30M+ beneficiaries across 55 countries. Advisor to corporates & foundations. Speaker and coach on purpose-led leadership, ESG, & AI for social good." />
+  <meta name="keywords" content="Balaji Ganapathy, social impact, CSR, ESG strategy, inclusive growth, DEI, purpose-driven leadership, AI for social good, philanthropy, workforce development" />
+  <meta name="author" content="Balaji Ganapathy" />
+  <meta name="theme-color" content="#001935" />
+
+  <!-- Open Graph (for LinkedIn / Facebook) -->
+  <meta property="og:title" content="Balaji Ganapathy — Purpose is the New Tech" />
+  <meta property="og:description" content="C-level executive, advisor, speaker and coach specializing in inclusive growth, ESG and digital transformation." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://balajiganapathy.com/" />
+  <meta property="og:image" content="https://balajiganapathy.com/assets/og-hero.jpg" />
+  <meta property="og:site_name" content="Balaji Ganapathy" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Balaji Ganapathy — Purpose is the New Tech" />
+  <meta name="twitter:description" content="Leader · Advisor · Speaker · Coach — Purpose-led leadership, ESG, social impact at scale." />
+  <meta name="twitter:image" content="https://balajiganapathy.com/assets/og-hero.jpg" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://balajiganapathy.com/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.ico" />
+
+  <!-- Minimal, self-contained CSS: mobile-first, variables + design system snippet -->
+  <style>
+    /* DESIGN SYSTEM (colors, typography, spacing, motion) */
+    :root{
+      /* Colors */
+      --bg: #ffffff;
+      --muted: #6b7280;
+      --text: #0f1724;
+      --primary: #001935; /* deep navy */
+      --primary-600: #0a2e5c;
+      --accent: #00d8be; /* teal */
+      --accent-600:#00bfa8;
+      --card: #f8fafc;
+      --glass: rgba(255,255,255,0.6);
+
+      /* Dark mode */
+      --dm-bg: #0b0c0e;
+      --dm-text: #e6f7f2;
+      --dm-card: #111214;
+
+      /* Typography */
+      --font-sans: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      --heading-1: 2.25rem;
+      --heading-2: 1.25rem;
+      --lead: 1rem;
+
+      /* Motion */
+      --ease: cubic-bezier(.2,.9,.2,1);
+      --timing: 380ms;
+
+      /* Spacing */
+      --container: 1100px;
+    }
+
+    /* Base */
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:var(--font-sans);
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      transition: background var(--timing) var(--ease), color var(--timing) var(--ease);
+    }
+
+    /* DARK MODE */
+    body.dark{
+      background:var(--dm-bg);
+      color:var(--dm-text);
+    }
+
+    /* Layout */
+    .site{
+      max-width:var(--container);
+      margin:0 auto;
+      padding:1.25rem;
+    }
+
+    header[role="banner"]{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      position:sticky;
+      top:0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.80), rgba(255,255,255,0.60));
+      backdrop-filter: blur(6px);
+      z-index:60;
+      padding:0.6rem 0.75rem;
+      border-bottom:1px solid #e6eef2;
+    }
+    body.dark header[role="banner"]{
+      background: linear-gradient(180deg, rgba(11,12,14,0.86), rgba(11,12,14,0.70));
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+
+    .brand{
+      display:flex;
+      gap:0.75rem;
+      align-items:center;
+    }
+    .brand img{
+      width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);
+    }
+    .brand .name{
+      font-weight:700;font-size:1rem;color:var(--primary-600);
+    }
+    body.dark .brand .name{color:var(--accent);}
+
+    nav[role="navigation"]{display:flex;gap:0.5rem;align-items:center;}
+    .persona-btn{
+      background:transparent;border:0;padding:0.5rem 0.6rem;border-radius:8px;font-weight:600;cursor:pointer;
+      color:inherit;transition:all var(--timing) var(--ease);
+    }
+    .persona-btn[aria-pressed="true"]{background:var(--accent);color:#fff;box-shadow:0 6px 20px rgba(0,216,190,0.12);}
+
+    /* Dark toggle */
+    .controls{display:flex;gap:0.5rem;align-items:center;}
+    .toggle-btn{background:transparent;border:1px solid var(--primary);padding:0.4rem 0.6rem;border-radius:8px;cursor:pointer;}
+    body.dark .toggle-btn{border-color:var(--accent);color:var(--accent);}
+
+    /* HERO: Parallax-like layered background */
+    .hero{
+      margin:1rem 0 1.5rem;
+      padding:2.25rem 1rem;
+      border-radius:14px;overflow:hidden;position:relative;
+      display:grid;grid-template-columns:1fr;gap:1rem;align-items:center;
+      color:#fff;
+      background:linear-gradient(180deg, rgba(0,25,53,0.9), rgba(10,46,92,0.85));
+    }
+    .hero .hero-inner{display:flex;flex-direction:column;gap:0.75rem;max-width:1100px;margin:0 auto;}
+    .hero h1{font-size:clamp(1.75rem,6vw,2.5rem);line-height:1.02;margin:0;font-weight:800;letter-spacing:-0.02em;}
+    .hero p.lead{margin:0;font-size:1rem;opacity:0.95;font-weight:500;}
+    .hero .cta{margin-top:1rem;display:inline-flex;align-items:center;gap:0.6rem;padding:0.75rem 1.1rem;border-radius:12px;border:0;background:var(--accent);color:#021;cursor:pointer;font-weight:700;text-decoration:none;}
+    .hero .subtle{font-size:0.9rem;opacity:0.9;}
+
+    /* Parallax image layers (suggested assets) */
+    .hero .hero-bg{
+      position:absolute;inset:0;background-position:center;background-size:cover;filter:contrast(0.92) saturate(1.02) brightness(0.95);transform:translateZ(0);
+      opacity:0.22;
+    }
+    .hero .hero-overlay{
+      position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.35));
+    }
+
+    /* Personas container as horizontal panels (accessible) */
+    .personas{
+      display:flex;gap:1rem;overflow:hidden;scroll-behavior:smooth;
+      width:100%;
+    }
+    .persona{
+      min-width:100%;
+      padding:1rem;
+      background:transparent;
+    }
+
+    /* CARD / METRICS */
+    .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.8rem;margin-top:1rem;}
+    .metric{
+      background:var(--card);padding:1rem;border-radius:12px;border:1px solid #e6eef2;
+      transition:transform var(--timing) var(--ease), box-shadow var(--timing) var(--ease);
+      display:flex;flex-direction:column;gap:0.3rem;align-items:flex-start;
+    }
+    body.dark .metric{background:var(--dm-card);border-color:rgba(255,255,255,0.03);}
+    .metric strong{font-size:1.45rem;color:var(--accent);display:block;}
+    .metric p{margin:0;font-size:0.92rem;color:var(--muted);}
+
+    /* Logo grid */
+    .logo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.6rem;padding:0.75rem;border-radius:10px;background:linear-gradient(90deg,#f8fafc,#fff);border:1px solid #eef3f6;}
+    .logo{padding:0.5rem;text-align:center;font-weight:600;color:var(--muted);font-size:0.9rem;}
+
+    /* Timeline (interactive) */
+    .timeline{display:flex;flex-direction:column;gap:0.6rem;margin:1rem 0;}
+    .timeline-item{
+      display:flex;gap:0.75rem;align-items:flex-start;padding:0.75rem;border-radius:10px;background:rgba(255,255,255,0.6);border:1px solid #eef3f6;
+    }
+    body.dark .timeline-item{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-color:rgba(255,255,255,0.03);}
+    .timeline-date{font-weight:700;color:var(--primary-600);min-width:86px;}
+    .timeline-body p{margin:0;color:var(--muted);font-size:0.95rem;}
+
+    /* Testimonials Slider (simple accessible) */
+    .testimonials{position:relative;padding:0.5rem;border-radius:10px;}
+    .testimonials-list{display:flex;gap:0.8rem;overflow:hidden;scroll-behavior:smooth;}
+    .testimonial{min-width:90%;padding:1rem;border-radius:10px;background:var(--card);border:1px solid #e6eef2;}
+    .testimonial p{color:var(--muted);margin:0;}
+    .testimonial cite{display:block;margin-top:0.5rem;font-weight:700;color:var(--primary-600);}
+
+    /* Modal contact accessible */
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:1rem;z-index:80;}
+    .modal[open]{display:flex;}
+    .modal-dialog{width:100%;max-width:720px;background:var(--card);border-radius:12px;padding:1.25rem;border:1px solid #e6eef2;}
+    body.dark .modal-dialog{background:var(--dm-card);border-color:rgba(255,255,255,0.03);}
+    .modal-close{float:right;border:0;background:transparent;font-size:1.25rem;cursor:pointer;}
+
+    /* AI chat stub */
+    .ai-chat{position:fixed;right:1rem;bottom:1rem;background:linear-gradient(180deg,var(--accent),var(--accent-600));color:#021;padding:0.6rem;border-radius:999px;box-shadow:0 6px 22px rgba(0,216,190,0.15);cursor:pointer;z-index:70;}
+    .ai-chat:focus{outline:3px solid rgba(0,216,190,0.20);}
+
+    /* Footer */
+    footer{margin-top:2rem;padding:1.5rem 0;border-top:1px solid #eef3f6;color:var(--muted);}
+    .footer-grid{display:grid;grid-template-columns:1fr auto;gap:0.75rem;align-items:center;}
+
+    /* Utility */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+    button{font-family:inherit;}
+    a{color:inherit;}
+
+    /* Responsive */
+    @media(min-width:720px){
+      .hero{padding:3rem 2rem;grid-template-columns:1fr 420px;align-items:center;}
+      .hero .media{border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(2,6,23,0.12);height:260px;}
+      .timeline{flex-direction:column;}
+    }
+    @media(min-width:980px){
+      .metrics{grid-template-columns:repeat(4,1fr);}
+      .personas{scroll-snap-type:x mandatory;}
+      .persona{scroll-snap-align:start;}
+    }
+  </style>
+
+  <!-- Inlined structured data for SEO & LLM recognition -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://balajiganapathy.com/#person",
+        "name": "Balaji Ganapathy",
+        "alternateName": "Balaji",
+        "jobTitle": "Chief Social Responsibility Officer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Tata Consultancy Services",
+          "sameAs": "https://www.tcs.com"
+        },
+        "description": "C-level executive focused on purpose-driven leadership, ESG, social impact and inclusive growth across 55 countries.",
+        "url": "https://balajiganapathy.com/",
+        "image": "https://balajiganapathy.com/assets/headshot-hero.jpg",
+        "sameAs": [
+          "https://www.linkedin.com/in/balajiganapathy",
+          "https://twitter.com/yourhandle",
+          "https://www.youtube.com/channel/yourchannel"
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://balajiganapathy.com/#org",
+        "name": "Balaji Ganapathy (Personal Brand)",
+        "url": "https://balajiganapathy.com/",
+        "logo": "https://balajiganapathy.com/assets/logo.svg",
+        "sameAs": [
+          "https://www.linkedin.com/in/balajiganapathy"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://balajiganapathy.com/#website",
+        "url": "https://balajiganapathy.com/",
+        "name": "Balaji Ganapathy",
+        "description": "Personal portfolio and thought leadership site for Balaji Ganapathy: leader, advisor, speaker, coach in social impact and ESG.",
+        "publisher": {
+          "@id": "https://balajiganapathy.com/#org"
+        }
+      },
+      {
+        "@type": "CreativeWork",
+        "@id": "https://balajiganapathy.com/#talk1",
+        "headline": "Purpose is the New Tech — Keynote by Balaji Ganapathy",
+        "creator": { "@id": "https://balajiganapathy.com/#person" },
+        "datePublished": "2025-03-01",
+        "about": "purpose-driven leadership, AI for social good, inclusive workforce",
+        "inLanguage": "en"
+      },
+      {
+        "@type":"Event",
+        "@id":"https://balajiganapathy.com/#upcoming-speech",
+        "name":"Keynote — Purpose, People & Technology",
+        "startDate":"2026-03-05",
+        "endDate":"2026-03-05",
+        "eventStatus":"https://schema.org/EventScheduled",
+        "location": {
+          "@type":"Place",
+          "name":"TBD (Global Conference)",
+          "address": {"@type":"PostalAddress","addressLocality":"TBD"}
+        },
+        "performer": {"@id":"https://balajiganapathy.com/#person"}
+      }
+    ]
+  }
+  </script>
+
+  <!-- Analytics & robots (placeholder) -->
+  <meta name="robots" content="index,follow" />
+  <!-- HANDOFF: Provide your analytics snippet (GA4, Plausible, Fathom) here before launch -->
+</head>
+
+<body>
+  <header role="banner" class="site" aria-label="Primary header">
+    <div class="brand" aria-hidden="false">
+      <img src="assets/headshot-thumb.jpg" alt="Balaji Ganapathy headshot" />
+      <div>
+        <div class="name">Balaji Ganapathy</div>
+        <div style="font-size:0.78rem;color:var(--muted);">Purpose is the New Tech</div>
+      </div>
+    </div>
+
+    <nav role="navigation" aria-label="Primary">
+      <div class="persona-controls" role="tablist" aria-label="Persona">
+        <button class="persona-btn" role="tab" aria-pressed="true" data-persona="leader">Leader</button>
+        <button class="persona-btn" role="tab" aria-pressed="false" data-persona="advisor">Advisor</button>
+        <button class="persona-btn" role="tab" aria-pressed="false" data-persona="speaker">Speaker</button>
+        <button class="persona-btn" role="tab" aria-pressed="false" data-persona="coach">Coach</button>
+      </div>
+
+      <div class="controls" style="margin-left:0.5rem;">
+        <button class="toggle-btn" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="site" id="main" role="main">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <!-- Background image (parallax feel via JS) -->
+      <div class="hero-bg" id="heroBg" style="background-image:url('assets/hero-people.jpg');" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <div class="hero-inner" role="region" aria-label="Hero">
+        <div>
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <span style="background:rgba(255,255,255,0.06);padding:0.35rem;border-radius:8px;font-weight:700;">Leader · Advisor · Speaker · Coach</span>
+            <span style="font-size:0.9rem;color:rgba(255,255,255,0.9);">Tata Consultancy Services — Global Social Responsibility</span>
+          </div>
+          <h1 id="hero-title">Purpose is the New Tech</h1>
+          <p class="lead subtle">I build systems, teams and strategies that expand access, equity and inclusion at scale — across business, government and civil society.</p>
+          <p class="subtle" style="margin-top:0.4rem;opacity:0.95">
+            Architected programs reaching 30M+ beneficiaries across 55 countries; mobilized partnerships, pro-bono value and community investments to unlock sustained economic mobility.
+          </p>
+          <div style="margin-top:0.75rem;">
+            <a class="cta" href="#contact" id="ctaContact">Work with me</a>
+            <a class="cta" href="#impact" style="background:transparent;border:2px solid rgba(255,255,255,0.22);color:#fff;margin-left:0.6rem;">See impact</a>
+          </div>
+        </div>
+
+        <!-- Right column: quick metrics & media -->
+        <aside style="display:flex;flex-direction:column;gap:0.6rem;align-items:stretch;" aria-label="Quick metrics">
+          <div class="media" style="background:#fff;padding:0.5rem;border-radius:12px;overflow:hidden;">
+            <img src="assets/hero-video-thumb.jpg" alt="Purpose in Action video thumbnail" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;">
+            <div class="metric" style="padding:0.6rem;">
+              <strong>30M+</strong><p>people reached</p>
+            </div>
+            <div class="metric" style="padding:0.6rem;">
+              <strong>55</strong><p>countries</p>
+            </div>
+            <div class="metric" style="padding:0.6rem;">
+              <strong>$650M</strong><p>community investments</p>
+            </div>
+            <div class="metric" style="padding:0.6rem;">
+              <strong>188</strong><p>partnerships</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PERSONAS: separate, swipable panels -->
+    <section id="personas" aria-label="Persona sections" class="personas" tabindex="0">
+      <!-- LEADER PANEL -->
+      <article class="persona" id="persona-leader" role="article" aria-labelledby="leader-title">
+        <h2 id="leader-title">Leader — Transforming Purpose into Practice</h2>
+        <p>
+          As Chief Social Responsibility Officer at Tata Consultancy Services I built enterprise-level programs to embed purpose in strategy, operations and culture. I lead with a bias for measurable outcomes — aligning business model levers to create economic opportunity at the last mile.
+        </p>
+
+        <div class="metrics" aria-hidden="false">
+          <div class="metric"><strong>30M+</strong><p>beneficiaries (women, youth, marginalized groups)</p></div>
+          <div class="metric"><strong>20M</strong><p>volunteer hours mobilized</p></div>
+          <div class="metric"><strong>$40M</strong><p>pro-bono technology value contributed</p></div>
+          <div class="metric"><strong>11K</strong><p>cross-sector leaders engaged</p></div>
+        </div>
+
+        <h3 style="margin-top:1rem;">Impact Snapshot</h3>
+        <div id="impact" class="logo-grid" role="list" aria-label="Engagement and partner organizations">
+          <div class="logo" role="listitem">World Economic Forum</div>
+          <div class="logo" role="listitem">U.S. Chamber Foundation</div>
+          <div class="logo" role="listitem">United Nations</div>
+          <div class="logo" role="listitem">Tata Trusts</div>
+          <div class="logo" role="listitem">Harvard</div>
+          <div class="logo" role="listitem">Stanford</div>
+        </div>
+
+        <h3 style="margin-top:1rem;">Interactive timeline</h3>
+        <!-- Simple accessible interactive timeline -->
+        <div class="timeline" role="list" aria-label="Timeline of selected milestones">
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-date">2021</div>
+            <div class="timeline-body"><strong>Enterprise Purpose Strategy</strong><p>Launched scalable frameworks to integrate purpose into global operating model and governance.</p></div>
+          </div>
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-date">2019</div>
+            <div class="timeline-body"><strong>Digital Skills for Millions</strong><p>Designed programs reaching millions of learners across 48 countries, with a focus on girls and underrepresented groups.</p></div>
+          </div>
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-date">2016</div>
+            <div class="timeline-body"><strong>Livelihoods & Entrepreneurship</strong><p>Scaled village-level digital entrepreneurship programs achieving market-based income growth for women participants.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ADVISOR PANEL -->
+      <article class="persona" id="persona-advisor" role="article" aria-labelledby="advisor-title" hidden>
+        <h2 id="advisor-title">Advisor — Board-ready counsel for purpose & performance</h2>
+        <p>
+          I advise CEOs, boards and foundations on aligning capital, talent and technology for inclusive, durable impact. My advisory work marries rigorous strategy with practical execution — from M&A integration to enterprise governance for ESG.
+        </p>
+
+        <h3 style="margin-top:1rem;">Advisory copy (persona-targeted) — for CXOs & Boards</h3>
+        <p style="color:var(--muted)">
+          I partner with executives who want to convert purpose into enterprise advantage. Expect bold diagnostics, a prioritized roadmap and operational playbooks — then help implementing them across governance, incentives and customer-facing programs.
+        </p>
+
+        <h3 style="margin-top:1rem;">Representative engagements</h3>
+        <div class="metrics">
+          <div class="metric"><strong>200+</strong><p>transformation programs advised</p></div>
+          <div class="metric"><strong>$30B</strong><p>in digital transformation transactions supported</p></div>
+          <div class="metric"><strong>Board</strong><p>service across philanthropic & impact funds</p></div>
+        </div>
+
+        <h3 style="margin-top:1rem;">Case Study highlights</h3>
+        <div role="list" aria-label="Advisory case studies">
+          <div style="padding:0.6rem;border-radius:8px;border:1px solid #eef3f6;margin-bottom:0.5rem;">
+            <strong>WEF: Closing the Skills Gap</strong><p style="margin:0;color:var(--muted)">Led cross-sector frameworks that enabled large-scale reskilling programs (17M+ metric impact across partner networks).</p>
+          </div>
+          <div style="padding:0.6rem;border-radius:8px;border:1px solid #eef3f6;">
+            <strong>CECP Integration</strong><p style="margin:0;color:var(--muted)">Helped align purpose strategies across 250+ companies to drive consistent measurement and accountability.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- SPEAKER PANEL -->
+      <article class="persona" id="persona-speaker" role="article" aria-labelledby="speaker-title" hidden>
+        <h2 id="speaker-title">Speaker — Keynotes on Purpose, AI for Good & the Future of Work</h2>
+        <p>Engaging keynotes that blend big ideas, practical frameworks and stories from the field. Audience: C-suite, policymakers, funders and practitioners.</p>
+
+        <h3 style="margin-top:1rem;">Signature talks (short descriptions for programs / event pages)</h3>
+        <ul>
+          <li><strong>Purpose-Driven Leadership</strong> — Why purpose is a strategic asset and how to operationalize it.</li>
+          <li><strong>AI for Social Good</strong> — Practical approaches to deploying AI ethically to solve education, healthcare and workforce challenges.</li>
+          <li><strong>Scaling Impact: Systems & Partnerships</strong> — Designing partnerships, metrics and funding models that scale and sustain outcomes.</li>
+        </ul>
+
+        <h3 style="margin-top:0.6rem;">Speaking highlights</h3>
+        <div class="metrics">
+          <div class="metric"><strong>WEF</strong><p>World Economic Forum sessions</p></div>
+          <div class="metric"><strong>US Chamber</strong><p>Business Solves Summit</p></div>
+          <div class="metric"><strong>CECP</strong><p>Purpose-Focused Summits</p></div>
+        </div>
+
+        <h3 style="margin-top:1rem;">Bookable topics & formats</h3>
+        <p style="color:var(--muted)">Keynote, fireside, panel moderation, executive workshops and board sessions. AV & technical rider available on request.</p>
+      </article>
+
+      <!-- COACH PANEL -->
+      <article class="persona" id="persona-coach" role="article" aria-labelledby="coach-title" hidden>
+        <h2 id="coach-title">Coach — Building leaders & teams that last</h2>
+        <p>I work with executives and leadership teams to align purpose, cadence and capabilities. My approach blends coaching, operating system design (rhythm of business), and practical governance to make good strategy stick.</p>
+
+        <h3 style="margin-top:1rem;">Coaching offering (for HR heads & CHROs)</h3>
+        <ul>
+          <li>Executive coaching (board-facing leaders)</li>
+          <li>Transformation coaching for cross-functional leadership teams</li>
+          <li>Design of rhythm of business, KPIs, and decision rights</li>
+        </ul>
+
+        <h3 style="margin-top:1rem;">Programs & deliverables</h3>
+        <div class="metrics">
+          <div class="metric"><strong>Leadership cohorts</strong><p>3–6 month sprints with hands-on design workshops</p></div>
+          <div class="metric"><strong>Governance packs</strong><p>Board & exec-ready playbooks</p></div>
+          <div class="metric"><strong>Team design</strong><p>Architecting high-performing, inclusive teams</p></div>
+        </div>
+
+        <h3 style="margin-top:1rem;">Gallery</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.5rem;margin-top:0.5rem;">
+          <img src="assets/team-1.jpg" alt="Leadership workshop" style="width:100%;height:120px;object-fit:cover;border-radius:8px;">
+          <img src="assets/team-2.jpg" alt="Field visit" style="width:100%;height:120px;object-fit:cover;border-radius:8px;">
+        </div>
+      </article>
+    </section>
+
+    <!-- Testimonials slider -->
+    <section style="margin-top:1rem;">
+      <h2>Testimonials</h2>
+      <div class="testimonials">
+        <div class="testimonials-list" id="testimonialsList" role="region" aria-label="Testimonials carousel">
+          <blockquote class="testimonial" tabindex="0">
+            <p>"Balaji is a rare combination of strategic clarity and operational rigor — he translates bold purpose into measurable impact."</p>
+            <cite>— Melinda, Global Philanthropy Leader</cite>
+          </blockquote>
+
+          <blockquote class="testimonial" tabindex="0">
+            <p>"His work on skilling and livelihoods has driven real economic outcomes for communities across India and beyond."</p>
+            <cite>— CEO, Global NGO</cite>
+          </blockquote>
+
+          <blockquote class="testimonial" tabindex="0">
+            <p>"Practical, decisive and deeply empathetic — a coach who helps leaders act with courage."</p>
+            <cite>— Fortune 100 CHRO</cite>
+          </blockquote>
+        </div>
+        <div style="display:flex;gap:0.5rem;margin-top:0.6rem;">
+          <button id="prevTest" class="persona-btn" aria-label="Previous testimonial">◀</button>
+          <button id="nextTest" class="persona-btn" aria-label="Next testimonial">▶</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Engagement / Contact -->
+    <section id="contact" style="margin-top:1.25rem;">
+      <h2>Work with Balaji</h2>
+      <p style="color:var(--muted)">For advisory, speaking and coaching requests: use the contact form or email <a href="mailto:contact@balajiganapathy.com">contact@balajiganapathy.com</a></p>
+
+      <form id="contactForm" class="modal-dialog" aria-label="Contact form" style="max-width:700px;margin-top:0.6rem;">
+        <label class="sr-only" for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" required style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid #eef3f6;margin-bottom:0.5rem;">
+
+        <label class="sr-only" for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Your email" required style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid #eef3f6;margin-bottom:0.5rem;">
+
+        <label class="sr-only" for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or event" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid #eef3f6;margin-bottom:0.5rem;"></textarea>
+
+        <div style="display:flex;gap:0.5rem;">
+          <button type="submit" class="cta" style="border-radius:10px;">Send message</button>
+          <button type="button" class="persona-btn" id="openModal">Request a short advisory call</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- AI Chat Widget stub -->
+  <button class="ai-chat" id="aiChat" aria-label="Ask Balaji (AI assistant)">Ask AI</button>
+
+  <!-- Modal (for full contact flow) -->
+  <div class="modal" role="dialog" aria-modal="true" aria-hidden="true" id="dialogModal" aria-labelledby="dialogTitle">
+    <div class="modal-dialog" role="document">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">✕</button>
+      <h3 id="dialogTitle">Request an advisory call</h3>
+      <p style="color:var(--muted)">Leave a short note and preferred times — we'll follow up with availability.</p>
+      <form id="modalForm">
+        <input id="modalName" name="modalName" placeholder="Name" required style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid #eef3f6;margin-bottom:0.5rem;">
+        <input id="modalEmail" name="modalEmail" type="email" placeholder="Email" required style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid #eef3f6;margin-bottom:0.5rem;">
+        <input id="modalTime" name="modalTime" placeholder="Preferred times (e.g. Mon-Fri, EST mornings)" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid #eef3f6;margin-bottom:0.5rem;">
+        <div style="display:flex;gap:0.5rem;">
+          <button type="submit" class="cta">Request call</button>
+          <button type="button" class="persona-btn" id="modalCancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer role="contentinfo" class="site" aria-label="Footer">
+    <div class="footer-grid">
+      <div>
+        <strong>Balaji Ganapathy</strong>
+        <div style="color:var(--muted);margin-top:0.4rem;">Leader · Advisor · Speaker · Coach</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="color:var(--muted);">Connect</div>
+        <div style="display:flex;gap:0.5rem;justify-content:flex-end;margin-top:0.5rem;">
+          <a href="https://linkedin.com/in/balajiganapathy" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+          <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="X">𝕏</a>
+          <a href="mailto:contact@balajiganapathy.com" aria-label="Email">✉</a>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:0.75rem;color:var(--muted);font-size:0.9rem;">© <span id="year"></span> Balaji Ganapathy. All rights reserved.</div>
+  </footer>
+
+  <!-- Light JS for interactivity (no external libs) -->
+  <script>
+    // HANDOFF: update links to canonical domain and analytics as needed
+    (function(){
+      // Utilities
+      const $ = (s, c=document)=> c.querySelector(s);
+      const $$ = (s, c=document)=> Array.from(c.querySelectorAll(s));
+
+      // YEAR
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      /* THEME: persist in localStorage */
+      const themeToggle = document.getElementById('themeToggle');
+      function setTheme(dark){
+        if(dark){
+          document.body.classList.add('dark');
+          themeToggle.textContent = '☀️';
+          themeToggle.setAttribute('aria-pressed','true');
+          localStorage.setItem('bg-theme','dark');
+        } else {
+          document.body.classList.remove('dark');
+          themeToggle.textContent = '🌙';
+          themeToggle.setAttribute('aria-pressed','false');
+          localStorage.setItem('bg-theme','light');
+        }
+      }
+      if(localStorage.getItem('bg-theme')==='dark'){
+        setTheme(true);
+      }
+      themeToggle.addEventListener('click', ()=> setTheme(!document.body.classList.contains('dark')) );
+
+      /* PERSONA NAV: toggles panels (keyboard accessible) */
+      const personaBtns = $$('.persona-btn');
+      const personas = {
+        leader: $('#persona-leader'),
+        advisor: $('#persona-advisor'),
+        speaker: $('#persona-speaker'),
+        coach: $('#persona-coach')
+      };
+      function showPersona(key){
+        // hide all, show the key
+        Object.keys(personas).forEach(k=>{
+          const el = personas[k];
+          if(k===key){
+            el.hidden = false;
+            // Ensure it scrolls into view for horizontal scrollers
+            el.scrollIntoView({behavior:'smooth', block:'nearest', inline:'start'});
+          } else el.hidden = true;
+        });
+        // update aria-pressed on buttons
+        personaBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.persona===key ? 'true' : 'false'));
+      }
+      personaBtns.forEach(b=>{
+        // normalize dataset: set data-persona values
+        if(!b.dataset.persona){
+          b.dataset.persona = b.textContent.trim().toLowerCase();
+        }
+        b.addEventListener('click', ()=> showPersona(b.dataset.persona));
+        b.addEventListener('keydown', (e)=> {
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); showPersona(b.dataset.persona); }
+        });
+      });
+
+      // default show leader
+      showPersona('leader');
+
+      /* Testimonials slider (simple) */
+      const list = document.getElementById('testimonialsList');
+      const nextTest = document.getElementById('nextTest');
+      const prevTest = document.getElementById('prevTest');
+      let testIndex = 0;
+      function showTest(i){
+        const children = Array.from(list.children);
+        if(i<0) i = children.length-1;
+        if(i>=children.length) i = 0;
+        testIndex = i;
+        children.forEach((c, idx)=>{
+          c.style.minWidth = '100%';
+          c.style.transform = `translateX(${(idx - testIndex) * 100}%)`;
+        });
+      }
+      nextTest.addEventListener('click', ()=> showTest(testIndex+1));
+      prevTest.addEventListener('click', ()=> showTest(testIndex-1));
+      showTest(0);
+
+      /* Testimonials auto-advance (accessible: pause on focus/hover) */
+      let autoT = setInterval(()=> showTest(testIndex+1), 7000);
+      [list, nextTest, prevTest].forEach(el=>{
+        el.addEventListener('mouseenter', ()=> clearInterval(autoT));
+        el.addEventListener('focusin', ()=> clearInterval(autoT));
+        el.addEventListener('mouseleave', ()=> autoT = setInterval(()=> showTest(testIndex+1), 7000));
+      });
+
+      /* Modal handling */
+      const dialog = document.getElementById('dialogModal');
+      const openModalBtn = document.getElementById('openModal');
+      const modalClose = document.getElementById('modalClose');
+      const modalCancel = document.getElementById('modalCancel');
+
+      function openModal(){
+        dialog.setAttribute('open','');
+        dialog.setAttribute('aria-hidden','false');
+        // trap focus
+        document.querySelector('#modalName').focus();
+      }
+      function closeModal(){
+        dialog.removeAttribute('open');
+        dialog.setAttribute('aria-hidden','true');
+      }
+      openModalBtn.addEventListener('click', openModal);
+      modalClose.addEventListener('click', closeModal);
+      modalCancel.addEventListener('click', closeModal);
+      dialog.addEventListener('click', (e)=> { if(e.target === dialog) closeModal(); });
+
+      // contact forms (demo behaviour: replace with real API / email integration)
+      document.getElementById('contactForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        alert('Thanks — message sent. We will contact you shortly.');
+        this.reset();
+      });
+      document.getElementById('modalForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        alert('Thanks — we received your request and will follow up.');
+        closeModal();
+        this.reset();
+      });
+
+      /* AI Chat Widget stub */
+      const aiChat = document.getElementById('aiChat');
+      aiChat.addEventListener('click', function(){
+        // HANDOFF: wire this to your AI search/chat backend (RAG, LLMs) or to Intercom/Drift.
+        // For handoff, call a modal that loads a conversational UI or open a link to an AI assistant.
+        alert('AI chat stub — connect to your conversational backend (RAG/LLM).');
+      });
+
+      /* Parallax subtle effect on scroll */
+      const heroBg = document.getElementById('heroBg');
+      window.addEventListener('scroll', function(){
+        const scrolled = window.scrollY;
+        // small translate for parallax
+        heroBg.style.transform = 'translateY(' + (scrolled * 0.08) + 'px)';
+      });
+
+      // Accessibility: keyboard shortcuts for personas (1-4)
+      window.addEventListener('keydown', (e)=>{
+        if(e.altKey && !e.shiftKey){
+          if(e.key === '1') showPersona('leader');
+          if(e.key === '2') showPersona('advisor');
+          if(e.key === '3') showPersona('speaker');
+          if(e.key === '4') showPersona('coach');
+        }
+      });
+
+      // ensure initial aria-hidden on modal
+      dialog.setAttribute('aria-hidden','true');
+
+      // Small progressive enhancement: play video if present on hero thumbnail click (not included here)
+      // HANDOFF: optionally replace alert with opening a video modal.
+    })();
+  </script>
+
+  <!--
+    HANDOFF: FILES & ASSETS (place in /assets/)
+    - headshot-thumb.jpg (48x48) -> site header thumb
+    - headshot-hero.jpg (1200x1200) -> hero/person image
+    - hero-people.jpg (2000x1200) -> hero background
+    - hero-video-thumb.jpg -> hero right column thumbnail
+    - og-hero.jpg -> Open Graph image (1200x630)
+    - team-1.jpg, team-2.jpg -> gallery images
+    - team-3.jpg, team-4.jpg -> additional images
+    - logo.svg -> personal brand logo
+    - favicon.ico
+    - sample videos (optional): videos/purpose-tech.mp4 videos/advisory-highlights.mp4
+    - sitemap suggestion: sitemap.xml (generate dynamically at deployment - example below)
+    - schema file (for handoff): schema.jsonld (copy the inlined JSON-LD into a separate file if desired)
+  -->
+
+  <!--
+    HANDOFF: SITEMAP (generate at deploy or manual)
+    Example sitemap.xml entries:
+    <?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url><loc>https://balajiganapathy.com/</loc><priority>1.00</priority></url>
+      <url><loc>https://balajiganapathy.com/speaking</loc><priority>0.8</priority></url>
+      <url><loc>https://balajiganapathy.com/advisory</loc><priority>0.8</priority></url>
+    </urlset>
+  -->
+
+  <!--
+    SEO & AI-LMM optimization checklist (HANDOFF NOTES)
+    - Ensure primary domain canonical and redirect non-www -> https://balajiganapathy.com
+    - Upload Open Graph image to /assets/og-hero.jpg (1200x630)
+    - Create schema.jsonld file (copy the script content in head) and include via <script src="/schema.jsonld" type="application/ld+json"></script> if preferred.
+    - Add a robots.txt pointing to sitemap: "Sitemap: https://balajiganapathy.com/sitemap.xml"
+    - Deploy to Cloudflare Pages or Netlify with asset caching and image optimization (use Cloudflare Images or Imgix for responsive srcsets)
+    - Implement server-side redirects for legacy pages; configure HSTS and TLS
+  -->
+
+  <!--
+    VOICE & COPY NOTES (persona-specific copy included inline):
+    - Tone modeled after global purpose leaders: clear, measured, visionary, pragmatic.
+    - Personas have short, action-oriented copy for leaders/boards, events & booking pages.
+    - Use these short bios on LinkedIn, speaker one-sheets and event pages.
+  -->
+</body>
+</html>
